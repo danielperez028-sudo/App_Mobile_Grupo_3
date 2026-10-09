@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReadBuddy.Views.LoginPage"
+             Title="Login"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="False">
+    
+    <VerticalStackLayout Spacing="0">
+
+
+        <!-- Blue header -->
+        <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="30,45,30,55">
+
+            <VerticalStackLayout
+                    Spacing="10"
+                    HorizontalOptions="Center">
+
+                <Label
+                        Text="🐒"
+                        FontSize="70"
+                        HorizontalTextAlignment="Center" />
+
+                <Label
+                        Text="ReadBuddy"
+                        TextColor="White"
+                        FontSize="32"
+                        FontAttributes="Bold"
+                        HorizontalTextAlignment="Center" />
+
+                <Label
+                        Text="Tu compañero de lectura"
+                        TextColor="White"
+                        FontSize="16"
+                        HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+        </Border>
+
+
+        <!-- Login card -->
+        <Border
+                BackgroundColor="{StaticResource CardWhite}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Margin="25,-30,25,25"
+                Padding="25">
+
+            <VerticalStackLayout
+                    Spacing="8">
+
+                <Label
+                        Text="Bienvenido!"
+                        Style="{StaticResource PageTitleStyle}" />
+
+                <Label
+                        Text="Empezemos a leer."
+                        Style="{StaticResource BodyTextStyle}"
+                        Margin="0,0,0,15" />
+
+                <Label
+                        Text="Usuario"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextDark}" />
+
+                <Entry
+                        Placeholder="Ingresa tu usuario"
+                        HeightRequest="52"
+                        BackgroundColor="#F7F7F7" />
+
+                <Label
+                        Text="Contraseña"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextDark}"
+                        Margin="0,10,0,0" />
+
+                <Entry
+                        Placeholder="Ingresa tu contraseña"
+                        IsPassword="True"
+                        HeightRequest="52"
+                        BackgroundColor="#F7F7F7" />
+
+                <Button
+                        Text="Entrar"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Margin="0,20,0,0"
+                        Clicked="OnEnterButtonClicked"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+    </VerticalStackLayout>
+
+</ContentPage>

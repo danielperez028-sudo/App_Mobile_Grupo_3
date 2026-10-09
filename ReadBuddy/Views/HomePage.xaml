@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ReadBuddy.Views.HomePage"
+    Title="Home"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{StaticResource BackgroundCream}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="20">
+
+            <!-- Greeting -->
+
+            <Grid
+                ColumnDefinitions="*,Auto">
+
+                <VerticalStackLayout>
+
+                    <Label
+                        Text="Hola, Alex! 👋"
+                        Style="{StaticResource PageTitleStyle}" />
+
+                    <Label
+                        Text="Que leemos hoy?"
+                        Style="{StaticResource BodyTextStyle}" />
+
+                </VerticalStackLayout>
+
+                <Label
+                    Grid.Column="1"
+                    Text="⭐ 120"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource SecondaryOrange}"
+                    VerticalOptions="Center" />
+
+            </Grid>
+
+
+            <!-- Continue reading -->
+
+            <Border
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 20"
+                Padding="20">
+
+                <Grid
+                    ColumnDefinitions="*,Auto">
+
+                    <VerticalStackLayout
+                        Spacing="5">
+
+                        <Label
+                            Text="SIGUE LEYENDO"
+                            TextColor="White"
+                            FontSize="13"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="El Viaje A Marte"
+                            TextColor="White"
+                            FontSize="22"
+                            FontAttributes="Bold" />
+
+                        <ProgressBar
+                            Progress="0.65"
+                            ProgressColor="{StaticResource SecondaryOrange}"
+                            BackgroundColor="#FFFFFF"
+                            Margin="0,10,0,0" />
+
+                        <Label
+                            Text="65% completado"
+                            TextColor="White"
+                            FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                    <Label
+                        Grid.Column="1"
+                        Text="▶"
+                        TextColor="White"
+                        FontSize="35"
+                        Margin="0,30,0,0"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Modules -->
+
+            <Label
+                Text="Que quieres hacer?"
+                Style="{StaticResource PageTitleStyle}"
+                FontSize="22" />
+
+
+            <Grid
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="12"
+                RowSpacing="12">
+
+                <!-- Read text -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource SecondaryOrange}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+
+                    <VerticalStackLayout
+                        Spacing="8">
+
+                        <Label
+                            Text="📷"
+                            FontSize="38" />
+
+                        <Label
+                            Text="Leer un Texto"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="Toma una Foto y Escucha"
+                            TextColor="White"
+                            FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+
+                <!-- Stories -->
+
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource PrimaryBlue}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+
+                    <VerticalStackLayout
+                        Spacing="8">
+
+                        <Label
+                            Text="📚"
+                            FontSize="38" />
+
+                        <Label
+                            Text="Historias"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="Lee y comprende"
+                            TextColor="White"
+                            FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+
+                <!-- Vocabulary -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource SuccessGreen}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+
+                    <VerticalStackLayout
+                        Spacing="8">
+
+                        <Label
+                            Text="📖"
+                            FontSize="38" />
+
+                        <Label
+                            Text="Vocabulario"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="Aprende nuevas palabras"
+                            TextColor="White"
+                            FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+
+                <!-- Progress -->
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource ModulePurple}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 20"
+                    Padding="18">
+
+                    <VerticalStackLayout
+                        Spacing="8">
+
+                        <Label
+                            Text="📊"
+                            FontSize="38" />
+
+                        <Label
+                            Text="Mi Progreso"
+                            TextColor="White"
+                            FontSize="18"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="Revisa tus logros"
+                            TextColor="White"
+                            FontSize="13" />
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

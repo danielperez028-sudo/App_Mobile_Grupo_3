@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ReadBuddy.Views.StoryFormPage"
+    Title="Story"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{StaticResource BackgroundCream}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="12">
+
+            <Label
+                Text="Nueva historia"
+                Style="{StaticResource PageTitleStyle}" />
+
+            
+
+            <!-- Cover -->
+
+            <Border
+                BackgroundColor="White"
+                Stroke="#D9D9D9"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 18"
+                HeightRequest="150"
+                Padding="20">
+
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Spacing="8">
+
+                    <Label
+                        Text="🖼️"
+                        FontSize="40"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Elegir portada"
+                        TextColor="{StaticResource TextDark}"
+                        FontAttributes="Bold" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+
+            <!-- Title -->
+
+            <Label
+                Text="Titulo"
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}" />
+
+            <Entry
+                Placeholder="El zorro y la luna"
+                HeightRequest="52"
+                BackgroundColor="White" />
+
+
+            <!-- Level and Skill -->
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="12">
+
+                <VerticalStackLayout>
+
+                    <Label
+                        Text="Nivel"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextDark}" />
+
+                    <Picker
+                        Title="Selecciona Nivel"
+                        BackgroundColor="White">
+
+                        <Picker.Items>
+                            <x:String>Facil</x:String>
+                            <x:String>Medio</x:String>
+                            <x:String>Dificil</x:String>
+                        </Picker.Items>
+
+                    </Picker>
+
+                </VerticalStackLayout>
+
+
+                <VerticalStackLayout
+                    Grid.Column="1">
+
+                    <Label
+                        Text="Habilidad"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource TextDark}" />
+
+                    <Picker
+                        Title="Selecciona habilidad"
+                        BackgroundColor="White">
+
+                        <Picker.Items>
+                            <x:String>Idea principal</x:String>
+                            <x:String>Detalles</x:String>
+                            <x:String>Inferencias</x:String>
+                            <x:String>Vocabulario</x:String>
+                            <x:String>Secuencia</x:String>
+                        </Picker.Items>
+
+                    </Picker>
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+
+            <!-- Category -->
+
+            <Label
+                Text="Categoria"
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}"
+                Margin="0,5,0,0" />
+
+            <Entry
+                Placeholder="Animales, aventura..."
+                HeightRequest="52"
+                BackgroundColor="White" />
+
+
+            <!-- Content -->
+
+            <Label
+                Text="Contenido"
+                FontAttributes="Bold"
+                TextColor="{StaticResource TextDark}"
+                Margin="0,5,0,0" />
+
+            <Editor
+                Placeholder="Escribe el contenido de la historia..."
+                HeightRequest="220"
+                BackgroundColor="White"
+                AutoSize="TextChanges" />
+
+
+            <!-- Active -->
+
+            <Border
+                BackgroundColor="White"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 15"
+                Padding="15"
+                Margin="0,5">
+
+                <Grid
+                    ColumnDefinitions="*,Auto">
+
+                    <VerticalStackLayout>
+
+                        <Label
+                            Text="Historia activa"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource TextDark}" />
+
+                        <Label
+                            Text="Los usuarios la pueden ver."
+                            FontSize="13"
+                            TextColor="{StaticResource TextDark}" />
+
+                    </VerticalStackLayout>
+
+                    <Switch
+                        Grid.Column="1"
+                        IsToggled="True"
+                        OnColor="{StaticResource SuccessGreen}" />
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- Buttons -->
+
+            <Grid
+                ColumnDefinitions="*,1.4*"
+                ColumnSpacing="12"
+                Margin="0,10,0,20">
+
+                <Button
+                    Text="Cancelar"
+                    Style="{StaticResource SecondaryButtonStyle}" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Guardar"
+                    Style="{StaticResource PrimaryButtonStyle}" />
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

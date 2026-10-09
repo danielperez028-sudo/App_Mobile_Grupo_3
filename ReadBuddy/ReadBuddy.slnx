@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="ReadBuddy.csproj" />
+  <Project Path="ReadBuddy.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>
