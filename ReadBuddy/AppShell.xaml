@@ -12,7 +12,7 @@
         ContentTemplate="{DataTemplate views:LoginPage}" />
 
     <TabBar>
-
+ 
         <ShellContent
             Title="Inicio"
             Route="home"
