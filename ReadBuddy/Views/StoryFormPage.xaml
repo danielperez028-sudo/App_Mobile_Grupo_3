@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="ReadBuddy.Views.StoryFormPage"
     Title="Story"
-    Shell.NavBarIsVisible="False"
-    BackgroundColor="{StaticResource BackgroundCream}">
+    BackgroundColor="{StaticResource BackgroundCream}"
+    Shell.NavBarIsVisible="False">
 
     <ScrollView>
 
@@ -36,14 +36,15 @@
                     Spacing="8">
 
                     <Label
-                        Text="🖼️"
-                        FontSize="40"
-                        HorizontalTextAlignment="Center" />
-
-                    <Label
-                        Text="Elegir portada"
+                        Text="Elegir portada *"
                         TextColor="{StaticResource TextDark}"
                         FontAttributes="Bold" />
+
+                    <Entry
+                        x:Name="CoverEntry"
+                        Placeholder="Ej: 🦊, 🐉, 🚀, 🪐"
+                        HeightRequest="52"
+                        BackgroundColor="White" />
 
                 </VerticalStackLayout>
 
@@ -53,11 +54,12 @@
             <!-- Title -->
 
             <Label
-                Text="Titulo"
+                Text="Titulo *"
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}" />
 
             <Entry
+                x:Name="TitleEntry"
                 Placeholder="El zorro y la luna"
                 HeightRequest="52"
                 BackgroundColor="White" />
@@ -72,11 +74,12 @@
                 <VerticalStackLayout>
 
                     <Label
-                        Text="Nivel"
+                        Text="Nivel *"
                         FontAttributes="Bold"
                         TextColor="{StaticResource TextDark}" />
 
                     <Picker
+                        x:Name="LevelPicker"
                         Title="Selecciona Nivel"
                         BackgroundColor="White">
 
@@ -95,11 +98,12 @@
                     Grid.Column="1">
 
                     <Label
-                        Text="Habilidad"
+                        Text="Habilidad *"
                         FontAttributes="Bold"
                         TextColor="{StaticResource TextDark}" />
 
                     <Picker
+                        x:Name="SkillPicker"
                         Title="Selecciona habilidad"
                         BackgroundColor="White">
 
@@ -121,12 +125,13 @@
             <!-- Category -->
 
             <Label
-                Text="Categoria"
+                Text="Categoria *"
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}"
                 Margin="0,5,0,0" />
 
             <Entry
+                x:Name="CategoryEntry"
                 Placeholder="Animales, aventura..."
                 HeightRequest="52"
                 BackgroundColor="White" />
@@ -135,12 +140,13 @@
             <!-- Content -->
 
             <Label
-                Text="Contenido"
+                Text="Contenido *"
                 FontAttributes="Bold"
                 TextColor="{StaticResource TextDark}"
                 Margin="0,5,0,0" />
 
             <Editor
+                x:Name="ContentEditor"
                 Placeholder="Escribe el contenido de la historia..."
                 HeightRequest="220"
                 BackgroundColor="White"
@@ -175,6 +181,7 @@
                     </VerticalStackLayout>
 
                     <Switch
+                        x:Name="IsActiveSwitch"
                         Grid.Column="1"
                         IsToggled="True"
                         OnColor="{StaticResource SuccessGreen}" />
@@ -193,12 +200,14 @@
 
                 <Button
                     Text="Cancelar"
-                    Style="{StaticResource SecondaryButtonStyle}" />
+                    Style="{StaticResource SecondaryButtonStyle}"
+                    Clicked="OnCancelButtonClicked" />
 
                 <Button
                     Grid.Column="1"
                     Text="Guardar"
-                    Style="{StaticResource PrimaryButtonStyle}" />
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Clicked="OnSaveButtonClicked" />
 
             </Grid>
 

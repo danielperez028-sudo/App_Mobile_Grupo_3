@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ReadBuddy.Models"
+             x:Class="ReadBuddy.Views.VocabularyPage"
+             Title="Vocabulario"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="true">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Header Section with Search Bar -->
+        <VerticalStackLayout Grid.Row="0"
+                            Padding="20,20,20,10"
+                            Spacing="5">
+
+            <Label Text="Mi Diccionario 🧠" 
+                   Style="{StaticResource PageTitleStyle}" />
+
+            <Label Text="Aprende el significado de palabras nuevas aquí." 
+                   Style="{StaticResource BodyTextStyle}" />
+
+            <SearchBar x:Name="VocabularySearchBar"
+                       Placeholder="Buscar una palabra..."
+                       Margin="0,10,0,0"
+                       TextChanged="OnSearchBarTextChanged" />
+        </VerticalStackLayout>
+
+        <!-- Dynamic Vocabulary Collection -->
+        <CollectionView Grid.Row="1"
+                        x:Name="VocabularyCollectionView"
+                        SelectionMode="None"
+                        Margin="0,10,0,0">
+
+            <!-- Empty State View -->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
+                    <Label Text="🔍" FontSize="50" HorizontalTextAlignment="Center"/>
+                    <Label Text="No encontramos esa palabra en el diccionario." HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <!-- Template Design for each Vocabulary Item -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:VocabularyWord">
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18"
+                            Padding="20"
+                            Margin="20,0,20,12">
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <!-- Word Title Banner -->
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" 
+                                       Text="{Binding Term}" 
+                                       FontSize="22" 
+                                       FontAttributes="Bold" 
+                                       TextColor="{StaticResource TextDark}" />
+
+                                <Border Grid.Column="1" 
+                                        BackgroundColor="#E8F5E9" 
+                                        StrokeThickness="0" 
+                                        StrokeShape="RoundRectangle 8" 
+                                        Padding="8,4">
+                                    <Label Text="✨ Nueva" 
+                                           TextColor="{StaticResource SuccessGreen}" 
+                                           FontAttributes="Bold" 
+                                           FontSize="11"/>
+                                </Border>
+                            </Grid>
+
+                            <!-- Definition Content -->
+                            <Label Text="{Binding Definition}" 
+                                   FontSize="15" 
+                                   TextColor="{StaticResource TextDark}" 
+                                   LineHeight="1.2"/>
+
+                            <!-- Divider line -->
+                            <BoxView HeightRequest="1" 
+                                     BackgroundColor="#E5E7EB" 
+                                     Margin="0,5" />
+
+                            <!-- Context Example Section -->
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="🗣️ Ejemplo:" 
+                                       FontAttributes="Bold" 
+                                       FontSize="13" 
+                                       TextColor="{StaticResource PrimaryBlue}" />
+                                <Label Text="{Binding Example}" 
+                                       FontAttributes="Italic" 
+                                       FontSize="13" 
+                                       TextColor="Gray" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

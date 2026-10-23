@@ -3,9 +3,10 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:ReadBuddy.Models"
     x:Class="ReadBuddy.Views.StoriesPage"
-    Title="Stories"
     Shell.NavBarIsVisible="False"
+    Title="Historias"
     BackgroundColor="{StaticResource BackgroundCream}">
 
     <Grid RowDefinitions="Auto,Auto,*">
@@ -26,8 +27,10 @@
                 Style="{StaticResource BodyTextStyle}" />
 
             <SearchBar
+                x:Name="StorySearchBar"
                 Placeholder="Buscar una historia..."
-                Margin="0,10,0,0" />
+                Margin="0,10,0,0"
+                TextChanged="OnSearchBarTextChanged" />
 
         </VerticalStackLayout>
 
@@ -41,244 +44,122 @@
 
             <Button
                 Text="Todas"
+                x:Name="BtnAll"
                 BackgroundColor="{StaticResource SecondaryOrange}"
                 TextColor="White"
                 CornerRadius="18"
-                HeightRequest="40" />
+                HeightRequest="40"
+                Clicked="OnFilterButtonClicked"/>
 
             <Button
                 Text="Facil"
+                x:Name="BtnEasy"
                 BackgroundColor="White"
                 TextColor="{StaticResource TextDark}"
                 CornerRadius="18"
-                HeightRequest="40" />
+                HeightRequest="40"
+                Clicked="OnFilterButtonClicked" />
 
             <Button
                 Text="Medio"
+                x:Name="BtnMedium"
                 BackgroundColor="White"
                 TextColor="{StaticResource TextDark}"
                 CornerRadius="18"
-                HeightRequest="40" />
+                HeightRequest="40"
+                Clicked="OnFilterButtonClicked"/>
 
             <Button
                 Text="Dificil"
+                x:Name="BtnHard"
                 BackgroundColor="White"
                 TextColor="{StaticResource TextDark}"
                 CornerRadius="18"
-                HeightRequest="40" />
+                HeightRequest="40"
+                Clicked="OnFilterButtonClicked" />
 
         </HorizontalStackLayout>
 
 
-        <!-- Story cards -->
+        <!-- Dynamic Catalog Collection -->
+        <CollectionView
+            Grid.Row="2"
+            x:Name="StoriesCollectionView"
+            SelectionMode="Single"                     
+            SelectionChanged="OnStorySelectionChanged"
+            Margin="0,10,0,0">
 
-        <ScrollView
-            Grid.Row="2">
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
+                    <Label Text="📖" FontSize="50" HorizontalTextAlignment="Center"/>
+                    <Label Text="No hay historias disponibles en este nivel." HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
 
-            <VerticalStackLayout
-                Padding="20,10,20,100"
-                Spacing="12">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Story">
+                    <Border
+                        BackgroundColor="White"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 18"
+                        Padding="15"
+                        Margin="20,0,20,12">
 
+                        <Grid
+                            ColumnDefinitions="70,*,Auto"
+                            ColumnSpacing="20">
 
-                <!-- Story 1 -->
+                            <!-- Cover Image Container -->
+                            <Border
+                                BackgroundColor="{StaticResource PrimaryBlue}"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 15"
+                                HeightRequest="70"
+                                WidthRequest="70">
 
-                <Border
-                    BackgroundColor="White"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 18"
-                    Padding="15">
+                                <Label
+                                    Text="{Binding Cover}"
+                                    FontSize="38"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
 
-                    <Grid
-                        ColumnDefinitions="70,*,Auto"
-                        ColumnSpacing="20">
+                            <!-- Info Content -->
+                            <VerticalStackLayout
+                                Grid.Column="1"
+                                VerticalOptions="Center"
+                                Spacing="5">
 
-                        <Border
-                            BackgroundColor="{StaticResource PrimaryBlue}"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            HeightRequest="70"
-                            WidthRequest="70">
+                                <Label
+                                    Text="{Binding Title}"
+                                    FontSize="19"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource TextDark}" />
 
+                                <Label
+                                    Text="{Binding Level, StringFormat='⭐ {0}'}"
+                                    FontSize="14"
+                                    TextColor="{StaticResource SecondaryOrange}" />
+
+                                <Label
+                                    Text="{Binding Skill}"
+                                    FontSize="13"
+                                    TextColor="{StaticResource TextDark}" />
+                            </VerticalStackLayout>
+
+                            <!-- Badge  Right side -->
                             <Label
-                                Text="🐶"
-                                FontSize="38"
-                                HorizontalOptions="Center"
+                                Grid.Column="2"
+                                Text="Nueva"
+                                TextColor="{StaticResource SecondaryOrange}"
+                                FontSize="12"
+                                FontAttributes="Bold"
                                 VerticalOptions="Center" />
 
-                        </Border>
-
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            Spacing="5">
-
-                            <Label
-                                Text="El perro aventurero"
-                                FontSize="19"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource TextDark}" />
-
-                            <Label
-                                Text="⭐ Facil"
-                                FontSize="14"
-                                TextColor="{StaticResource SecondaryOrange}" />
-
-                            <Label
-                                Text="Idea principal"
-                                FontSize="13"
-                                TextColor="{StaticResource TextDark}" />
-
-                        </VerticalStackLayout>
-
-                        <Label
-                            Grid.Column="2"
-                            Text="✓"
-                            TextColor="{StaticResource SuccessGreen}"
-                            FontSize="26"
-                            VerticalOptions="Center" />
-
-                    </Grid>
-
-                </Border>
-
-
-                <!-- Story 2 -->
-
-                <Border
-                    BackgroundColor="White"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 18"
-                    Padding="15">
-
-                    <Grid
-                        ColumnDefinitions="70,*,Auto"
-                        ColumnSpacing="15">
-
-                        <Border
-                            BackgroundColor="{StaticResource SecondaryOrange}"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            HeightRequest="70"
-                            WidthRequest="70">
-
-                            <Label
-                                Text="🔑"
-                                FontSize="38"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-
-                        </Border>
-
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            Spacing="5">
-
-                            <Label
-                                Text="La llave misteriosa"
-                                FontSize="19"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource TextDark}" />
-
-                            <Label
-                                Text="⭐⭐ Medio"
-                                FontSize="14"
-                                TextColor="{StaticResource SecondaryOrange}" />
-
-                            <Label
-                                Text=" Inferencias"
-                                FontSize="13"
-                                TextColor="{StaticResource TextDark}" />
-
-                        </VerticalStackLayout>
-
-                        <Label
-                            Grid.Column="2"
-                            Text="Nueva"
-                            TextColor="{StaticResource SecondaryOrange}"
-                            FontSize="12"
-                            FontAttributes="Bold"
-                            VerticalOptions="Center" />
-
-                    </Grid>
-
-                </Border>
-
-
-                <!-- Story 3 -->
-
-                <Border
-                    BackgroundColor="White"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 18"
-                    Padding="15">
-
-                    <Grid
-                        ColumnDefinitions="70,*,Auto"
-                        ColumnSpacing="15">
-
-                        <Border
-                            BackgroundColor="{StaticResource SuccessGreen}"
-                            StrokeThickness="0"
-                            StrokeShape="RoundRectangle 15"
-                            HeightRequest="70"
-                            WidthRequest="70">
-
-                            <Label
-                                Text="🌲"
-                                FontSize="38"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-
-                        </Border>
-
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            VerticalOptions="Center"
-                            Spacing="5">
-
-                            <Label
-                                Text="La aventura en el bosque"
-                                FontSize="19"
-                                FontAttributes="Bold"
-                                TextColor="{StaticResource TextDark}" />
-
-                            <Label
-                                Text="⭐⭐⭐ Dificil"
-                                FontSize="14"
-                                TextColor="{StaticResource SecondaryOrange}" />
-
-                            <Label
-                                Text=" Vocabulario"
-                                FontSize="13"
-                                TextColor="{StaticResource TextDark}" />
-
-                        </VerticalStackLayout>
-
-                        <Label
-                            Grid.Column="2"
-                            Text="Nueva"
-                            TextColor="{StaticResource SecondaryOrange}"
-                            FontSize="12"
-                            FontAttributes="Bold"
-                            VerticalOptions="Center" />
-
-                    </Grid>
-
-                </Border>
-
-
-                <!--add button -->
-
-                <Button
-                    Text="+  Añadir nueva historia"
-                    Style="{StaticResource PrimaryButtonStyle}"
-                    Margin="0,10,0,0" />
-
-            </VerticalStackLayout>
-
-        </ScrollView>
-
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
-
 </ContentPage>

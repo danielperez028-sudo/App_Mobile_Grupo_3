@@ -3,9 +3,11 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ReadBuddy.Views"
     x:Class="ReadBuddy.Views.HomePage"
-    Title="Home"
     Shell.NavBarIsVisible="False"
+    Title="Home"
+    
     BackgroundColor="{StaticResource BackgroundCream}">
 
     <ScrollView>
@@ -14,30 +16,39 @@
             Padding="20"
             Spacing="20">
 
-            <!-- Greeting -->
+            
+            <Grid ColumnDefinitions="Auto, *, Auto" 
+                  RowDefinitions="60"
+                  ColumnSpacing="15"
+                  VerticalOptions="Start">
 
-            <Grid
-                ColumnDefinitions="*,Auto">
+               
+                <ImageButton Grid.Column="0"
+                 Grid.Row="0"
+                 x:Name="MenuNavigationButton"
+                 Source="menu_icon.png" 
+                 HeightRequest="35"
+                 WidthRequest="35"
+                 BackgroundColor="Transparent"
+                 VerticalOptions="Center"
+                 Clicked="OnMenuNavigationButtonClicked"/>
 
-                <VerticalStackLayout>
-
-                    <Label
-                        Text="Hola, Alex! 👋"
-                        Style="{StaticResource PageTitleStyle}" />
-
-                    <Label
-                        Text="Que leemos hoy?"
-                        Style="{StaticResource BodyTextStyle}" />
-
+                <!-- Greetings -->
+                <VerticalStackLayout Grid.Column="1" 
+                     Grid.Row="0"
+                     VerticalOptions="Center">
+                    <Label Text="Hola, Lector! 👋" Style="{StaticResource PageTitleStyle}" />
+                    <Label Text="Que leemos hoy?" Style="{StaticResource BodyTextStyle}" />
                 </VerticalStackLayout>
 
-                <Label
-                    Grid.Column="1"
-                    Text="⭐ 120"
-                    FontSize="20"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource SecondaryOrange}"
-                    VerticalOptions="Center" />
+               
+                <Label Grid.Column="2"
+                   Grid.Row="0"
+                   Text="⭐ 120"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource SecondaryOrange}"
+                   VerticalOptions="Center" />
 
             </Grid>
 
@@ -151,6 +162,10 @@
                     StrokeShape="RoundRectangle 20"
                     Padding="18">
 
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnStoriesCardTapped" />
+                    </Border.GestureRecognizers>
+
                     <VerticalStackLayout
                         Spacing="8">
 
@@ -183,6 +198,11 @@
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20"
                     Padding="18">
+
+                    
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnVocabularyCardTapped" />
+                    </Border.GestureRecognizers>
 
                     <VerticalStackLayout
                         Spacing="8">

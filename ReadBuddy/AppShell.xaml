@@ -5,13 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ReadBuddy.Views"
     Title="ReadBuddy">
+    
+    
 
     <ShellContent
         Title="Login"
         Route="login"
-        ContentTemplate="{DataTemplate views:LoginPage}" />
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"
+        Shell.TabBarIsVisible="False" />
 
-    <TabBar>
+    <ShellContent
+        Title="Registro Estudiante"
+        Route="register-student"
+        ContentTemplate="{DataTemplate views:RegisterStudentPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.TabBarIsVisible="False" />
+
+    <FlyoutItem Title="Menú Estudiante" Shell.FlyoutItemIsVisible="False"
+                Route="student-app">
 
         <ShellContent
             Title="Inicio"
@@ -23,11 +38,25 @@
             Route="stories"
             ContentTemplate="{DataTemplate views:StoriesPage}" />
 
-        <ShellContent
-            Title="Creacion"
-            Route="story-form"
-            ContentTemplate="{DataTemplate views:StoryFormPage}" />
+        
 
-    </TabBar>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Panel de Control (Admin)" Shell.FlyoutItemIsVisible="False" Route="admin-panel">
+
+        
+        <ShellContent
+            Title="Gestión General"
+            Route="admin-home"
+            Shell.FlyoutItemIsVisible="False"
+            ContentTemplate="{DataTemplate views:AdminDashboardPage}"/>
+
+
+
+    </FlyoutItem>
+
+
+    <MenuItem Text=" 🚪 Cerrar sesión"
+              Clicked="OnLogoutButtonClicked" />
 
 </Shell>

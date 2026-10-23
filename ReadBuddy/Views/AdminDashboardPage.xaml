@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ReadBuddy.Models"
+             x:Class="ReadBuddy.Views.AdminDashboardPage"
+             Title="Panel de Administración"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, Auto, *">
+
+        <!-- Header banner -->
+        <Border Grid.Row="0"
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="25,35,25,25">
+
+            <Grid ColumnDefinitions="Auto, Auto, *" ColumnSpacing="15" VerticalOptions="Center">
+
+                
+                <ImageButton Grid.Column="0"
+                     x:Name="AdminMenuNavigationButton"
+                     Source="menu_icon.png" 
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     BackgroundColor="Transparent"
+                     VerticalOptions="Center"
+                     Clicked="OnAdminMenuNavigationButtonClicked"/>
+
+                
+                <Label Grid.Column="1" 
+                       Text="⚙️" 
+                       FontSize="40" 
+                       VerticalOptions="Center"/>
+
+                
+                <VerticalStackLayout Grid.Column="2" VerticalOptions="Center">
+                    <Label Text="Panel de Control" TextColor="White" FontSize="26" FontAttributes="Bold" />
+                    <Label Text="Gestión global de ReadBuddy" TextColor="White" FontSize="14" Opacity="0.8" />
+                </VerticalStackLayout>
+
+            </Grid>
+        </Border>
+
+        <!-- Action Management Section (Links to Registration Forms) -->
+        <Border Grid.Row="1"
+                BackgroundColor="{StaticResource CardWhite}"
+                StrokeThickness="0"
+                StrokeShape="RoundRectangle 15"
+                Margin="25,20,25,10"
+                Padding="20">
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Añadir Nuevo Contenido" FontAttributes="Bold" FontSize="18" TextColor="{StaticResource TextDark}" Margin="0,0,0,5"/>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                    <Button Grid.Column="0" Text="+ Historia" Clicked="OnAddStoryButtonClicked" Style="{StaticResource PrimaryButtonStyle}" HeightRequest="45" FontSize="13"/>
+                    <Button Grid.Column="1" Text="+ Pregunta" Clicked="OnAddQuestionButtonClicked" Style="{StaticResource PrimaryButtonStyle}" HeightRequest="45" FontSize="13"/>
+                    <Button Grid.Column="2" Text="+ Palabra" Clicked="OnAddVocabularyButtonClicked" Style="{StaticResource PrimaryButtonStyle}" HeightRequest="45" FontSize="13"/>
+                </Grid>
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Student Records List Section  -->
+        <Grid Grid.Row="2" RowDefinitions="Auto, *" Margin="25,10,25,25">
+            <Label Grid.Row="0" Text="Alumnos Registrados" FontAttributes="Bold" FontSize="18" TextColor="{StaticResource TextDark}" Margin="0,5,0,10"/>
+
+            <CollectionView Grid.Row="1" x:Name="StudentsCollectionView" SelectionMode="None">
+                <!-- Empty State Message -->
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
+                        <Label Text="👥" FontSize="50" HorizontalTextAlignment="Center"/>
+                        <Label Text="No hay estudiantes registrados todavía." HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15"/>
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <!-- Custom Template Design for each Student Row -->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Student">
+                        <Border BackgroundColor="White"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 12"
+                                Margin="0,0,0,10"
+                                Padding="15">
+                            <Grid ColumnDefinitions="Auto, *, Auto" ColumnSpacing="15" VerticalOptions="Center">
+                                <!-- Avatar Frame -->
+                                <Label Grid.Column="0" Text="{Binding Avatar}" FontSize="32" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                                <!-- Core text details -->
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" TextColor="{StaticResource TextDark}"/>
+                                    <Label Text="{Binding UserName, StringFormat='@{0}'}" FontSize="13" TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <!-- Age badge indicator -->
+                                <Border Grid.Column="2" BackgroundColor="#E3F2FD" StrokeThickness="0" StrokeShape="RoundRectangle 8" Padding="10,5">
+                                    <Label Text="{Binding Age, StringFormat='{0} años'}" TextColor="{StaticResource PrimaryBlue}" FontAttributes="Bold" FontSize="12"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>

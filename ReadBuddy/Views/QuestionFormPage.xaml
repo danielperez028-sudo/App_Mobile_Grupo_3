@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ReadBuddy.Views.QuestionFormPage"
+             Title="Nueva Pregunta"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Nueva Pregunta" Style="{StaticResource PageTitleStyle}" />
+
+            <!-- Story Selection Dropdown -->
+            <Label Text="Historia Relacionada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
+            <Picker x:Name="StoryPicker" 
+                    Title="Selecciona el cuento correspondiente" 
+                    ItemDisplayBinding="{Binding Title}"
+                    BackgroundColor="White" />
+
+            <!-- Question Text -->
+            <Label Text="Pregunta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Entry x:Name="QuestionEntry" Placeholder="¿Cómo se llamaba el personaje principal?" HeightRequest="52" BackgroundColor="White" />
+
+            <!-- Skill Picker -->
+            <Label Text="Habilidad Evaluada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Picker x:Name="SkillPicker" Title="Selecciona la habilidad" BackgroundColor="White">
+                <Picker.Items>
+                    <x:String>Idea principal</x:String>
+                    <x:String>Detalles específicos</x:String>
+                    <x:String>Inferencias</x:String>
+                    <x:String>Vocabulario</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!-- . Answers divided by comma -->
+            <Label Text="Opciones de Respuesta (Separadas por comas) *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
+            <Entry x:Name="OptionsEntry" Placeholder="Ej: Azul,Rojo,Verde" HeightRequest="52" BackgroundColor="White" TextChanged="OnOptionsEntryTextChanged" />
+
+            
+            <Label Text="Selecciona la Respuesta Correcta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Picker x:Name="CorrectAnswerPicker" Title="Elige la respuesta correcta" BackgroundColor="White" />
+
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,1.4*" ColumnSpacing="12" Margin="0,20,0,20">
+                <Button Text="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Clicked="OnCancelButtonClicked" />
+                <Button Grid.Column="1" Text="Guardar Pregunta" Style="{StaticResource PrimaryButtonStyle}" Clicked="OnSaveButtonClicked" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
