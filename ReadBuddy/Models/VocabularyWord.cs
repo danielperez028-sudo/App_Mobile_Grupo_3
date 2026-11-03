@@ -21,5 +21,7 @@ namespace ReadBuddy.Models
             ? "Sin ejemplo"
 
             : $"Ej: {Example}";
+
+        public bool HasExample => !string.IsNullOrWhiteSpace(Example);
     }
 }

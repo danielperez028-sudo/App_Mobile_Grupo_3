@@ -1,4 +1,5 @@
-﻿using ReadBuddy.Views;
+﻿using ReadBuddy.ViewModels;
+using ReadBuddy.Views;
 
 namespace ReadBuddy
 {
@@ -7,30 +8,18 @@ namespace ReadBuddy
         public AppShell()
         {
             InitializeComponent();
+            BindingContext = new AppShellViewModel();
 
-            // REGISTRO DE RUTAS DINÁMICAS PARA LOS FORMULARIOS
-            Routing.RegisterRoute("story-form", typeof(StoryFormPage));
-            Routing.RegisterRoute("question-form", typeof(QuestionFormPage));
-            Routing.RegisterRoute("vocabulary-form", typeof(VocabularyFormPage));
+            // Route registration is navigation wiring, not logic, so it stays here.
+            // These names must match the constants in Routes.
+            Routing.RegisterRoute(Routes.StoryForm, typeof(StoryFormPage));
+            Routing.RegisterRoute(Routes.QuestionForm, typeof(QuestionFormPage));
+            Routing.RegisterRoute(Routes.VocabularyForm, typeof(VocabularyFormPage));
+            Routing.RegisterRoute(Routes.ManageStories, typeof(ManageStoriesPage));
+            Routing.RegisterRoute(Routes.ManageQuestions, typeof(ManageQuestionsPage));
+            Routing.RegisterRoute(Routes.ManageVocabulary, typeof(ManageVocabularyPage));
             Routing.RegisterRoute("story-questions", typeof(QuestionsPage));
             Routing.RegisterRoute("vocabulary-page", typeof(VocabularyPage));
-        }
-
-
-        private async void OnLogoutButtonClicked(object? sender, EventArgs e)
-        {
-            var confirm = await DisplayAlertAsync(
-                "Cerrar sesión",
-                "¿Seguro que quieres salir?",
-                "Sí",
-                "No");
-
-            if (confirm)
-            {
-                FlyoutIsPresented = false;
-                await GoToAsync("//login");
-            }
-
         }
     }
 }

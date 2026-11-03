@@ -1,51 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ReadBuddy.Models"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
              x:Class="ReadBuddy.Views.QuestionFormPage"
-             Title="Nueva Pregunta"
+             x:DataType="vm:QuestionFormViewModel"
+             Title="Pregunta"
              BackgroundColor="{StaticResource BackgroundCream}"
              Shell.NavBarIsVisible="False">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="12">
 
-            <Label Text="Nueva Pregunta" Style="{StaticResource PageTitleStyle}" />
+            <Label Text="{Binding FormTitle}" Style="{StaticResource PageTitleStyle}" />
 
-            <!-- Story Selection Dropdown -->
+            <!-- Story -->
             <Label Text="Historia Relacionada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
-            <Picker x:Name="StoryPicker" 
-                    Title="Selecciona el cuento correspondiente" 
-                    ItemDisplayBinding="{Binding Title}"
+            <Picker Title="Selecciona el cuento correspondiente"
+                    ItemsSource="{Binding Stories}"
+                    ItemDisplayBinding="{Binding Title, x:DataType=models:Story}"
+                    SelectedItem="{Binding SelectedStory}"
                     BackgroundColor="White" />
+            <Label Text="Aún no hay historias. Crea una historia antes de agregar preguntas."
+                   IsVisible="{Binding HasNoStories}"
+                   TextColor="Gray" FontSize="12" Margin="4,-6,0,0" />
+            <Label Text="{Binding StoryError}" IsVisible="{Binding HasStoryError}" Style="{StaticResource ErrorTextStyle}" />
 
-            <!-- Question Text -->
+            <!-- Question -->
             <Label Text="Pregunta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-            <Entry x:Name="QuestionEntry" Placeholder="¿Cómo se llamaba el personaje principal?" HeightRequest="52" BackgroundColor="White" />
+            <Entry Text="{Binding QuestionText}"
+                   Placeholder="¿Cómo se llamaba el personaje principal?"
+                   HeightRequest="52" BackgroundColor="White" />
+            <Label Text="{Binding QuestionError}" IsVisible="{Binding HasQuestionError}" Style="{StaticResource ErrorTextStyle}" />
 
-            <!-- Skill Picker -->
+            <!-- Skill -->
             <Label Text="Habilidad Evaluada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-            <Picker x:Name="SkillPicker" Title="Selecciona la habilidad" BackgroundColor="White">
-                <Picker.Items>
-                    <x:String>Idea principal</x:String>
-                    <x:String>Detalles específicos</x:String>
-                    <x:String>Inferencias</x:String>
-                    <x:String>Vocabulario</x:String>
-                </Picker.Items>
-            </Picker>
+            <Picker Title="Selecciona la habilidad"
+                    ItemsSource="{Binding Skills}"
+                    SelectedItem="{Binding Skill}"
+                    BackgroundColor="White" />
+            <Label Text="{Binding SkillError}" IsVisible="{Binding HasSkillError}" Style="{StaticResource ErrorTextStyle}" />
 
-            <!-- . Answers divided by comma -->
-            <Label Text="Opciones de Respuesta (Separadas por comas) *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
-            <Entry x:Name="OptionsEntry" Placeholder="Ej: Azul,Rojo,Verde" HeightRequest="52" BackgroundColor="White" TextChanged="OnOptionsEntryTextChanged" />
+            <!-- Options -->
+            <Label Text="Opciones de Respuesta (Separadas por comas) *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Entry Text="{Binding OptionsText}"
+                   Placeholder="Ej: Azul, Rojo, Verde"
+                   HeightRequest="52" BackgroundColor="White" />
+            <Label Text="{Binding OptionsError}" IsVisible="{Binding HasOptionsError}" Style="{StaticResource ErrorTextStyle}" />
 
-            
+            <!-- Correct answer -->
             <Label Text="Selecciona la Respuesta Correcta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-            <Picker x:Name="CorrectAnswerPicker" Title="Elige la respuesta correcta" BackgroundColor="White" />
-
+            <Picker Title="Elige la respuesta correcta"
+                    ItemsSource="{Binding AnswerChoices}"
+                    SelectedItem="{Binding CorrectAnswer}"
+                    BackgroundColor="White" />
+            <Label Text="{Binding CorrectAnswerError}" IsVisible="{Binding HasCorrectAnswerError}" Style="{StaticResource ErrorTextStyle}" />
 
             <!-- Buttons -->
             <Grid ColumnDefinitions="*,1.4*" ColumnSpacing="12" Margin="0,20,0,20">
-                <Button Text="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Clicked="OnCancelButtonClicked" />
-                <Button Grid.Column="1" Text="Guardar Pregunta" Style="{StaticResource PrimaryButtonStyle}" Clicked="OnSaveButtonClicked" />
+                <Button Text="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CancelCommand}" />
+                <Button Grid.Column="1" Text="{Binding SaveButtonText}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}" />
             </Grid>
 
         </VerticalStackLayout>

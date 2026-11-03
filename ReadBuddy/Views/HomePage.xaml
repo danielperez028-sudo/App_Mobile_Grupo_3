@@ -3,11 +3,11 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ReadBuddy.Views"
+    xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
     x:Class="ReadBuddy.Views.HomePage"
+    x:DataType="vm:HomeViewModel"
     Shell.NavBarIsVisible="False"
     Title="Home"
-    
     BackgroundColor="{StaticResource BackgroundCream}">
 
     <ScrollView>
@@ -22,16 +22,15 @@
                   ColumnSpacing="15"
                   VerticalOptions="Start">
 
-               
+
                 <ImageButton Grid.Column="0"
-                 Grid.Row="0"
-                 x:Name="MenuNavigationButton"
-                 Source="menu_icon.png" 
-                 HeightRequest="35"
-                 WidthRequest="35"
-                 BackgroundColor="Transparent"
-                 VerticalOptions="Center"
-                 Clicked="OnMenuNavigationButtonClicked"/>
+                     Grid.Row="0"
+                     Source="menu_icon.png"
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     BackgroundColor="Transparent"
+                     VerticalOptions="Center"
+                     Command="{Binding OpenMenuCommand}" />
 
                 <!-- Greetings -->
                 <VerticalStackLayout Grid.Column="1" 
@@ -163,7 +162,7 @@
                     Padding="18">
 
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnStoriesCardTapped" />
+                        <TapGestureRecognizer Command="{Binding OpenStoriesCommand}" />
                     </Border.GestureRecognizers>
 
                     <VerticalStackLayout
@@ -201,7 +200,7 @@
 
                     
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnVocabularyCardTapped" />
+                        <TapGestureRecognizer Command="{Binding OpenVocabularyCommand}" />
                     </Border.GestureRecognizers>
 
                     <VerticalStackLayout

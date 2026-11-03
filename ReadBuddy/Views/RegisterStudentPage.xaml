@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
              x:Class="ReadBuddy.Views.RegisterStudentPage"
+             x:DataType="vm:StudentRegisterViewModel"
              Title="Registro Estudiante"
              BackgroundColor="{StaticResource BackgroundCream}"
              Shell.NavBarIsVisible="False">
@@ -9,7 +11,7 @@
     <ScrollView>
         <VerticalStackLayout Spacing="0">
 
-            
+            <!-- Header -->
             <Border BackgroundColor="{StaticResource PrimaryBlue}"
                     StrokeThickness="0"
                     Padding="50,40,30,45">
@@ -20,7 +22,7 @@
                 </VerticalStackLayout>
             </Border>
 
-            
+            <!-- Form card -->
             <Border BackgroundColor="{StaticResource CardWhite}"
                     StrokeThickness="0"
                     StrokeShape="RoundRectangle 20"
@@ -29,33 +31,35 @@
 
                 <VerticalStackLayout Spacing="12">
 
-                    
+                    <!-- Name -->
                     <Label Text="Nombre del Estudiante *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
-                    <Entry x:Name="NameEntry" Placeholder="¿Cómo te llamas?" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Entry Text="{Binding Name}" Placeholder="¿Cómo te llamas?" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Label Text="{Binding NameError}" IsVisible="{Binding HasNameError}" Style="{StaticResource ErrorTextStyle}" />
 
-                    
+                    <!-- Age -->
                     <Label Text="Edad *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-                    <Entry x:Name="AgeEntry" Placeholder="¿Cuántos años tienes?" Keyboard="Numeric" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Entry Text="{Binding AgeText}" Placeholder="¿Cuántos años tienes?" Keyboard="Numeric" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Label Text="{Binding AgeError}" IsVisible="{Binding HasAgeError}" Style="{StaticResource ErrorTextStyle}" />
 
-                    
-                    <Label Text="Elige tu Avatar (Emoji) " FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-                    <Entry x:Name="AvatarEntry" Placeholder="Ej: 🦊, 🦁, 🤖, 🦄" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <!-- Avatar -->
+                    <Label Text="Elige tu Avatar (Emoji) *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+                    <Entry Text="{Binding Avatar}" Placeholder="Ej: 🦊, 🦁, 🤖, 🦄" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Label Text="{Binding AvatarError}" IsVisible="{Binding HasAvatarError}" Style="{StaticResource ErrorTextStyle}" />
 
-                    
+                    <!-- Username -->
                     <Label Text="Elige tu Nombre de Usuario *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-                    <Entry x:Name="UserNameEntry" Placeholder="Ej: alex_lector" HeightRequest="52" BackgroundColor="#F7F7F7" />
-                    
-                    
+                    <Entry Text="{Binding UserName}" Placeholder="Ej: alex_lector" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Label Text="{Binding UserNameError}" IsVisible="{Binding HasUserNameError}" Style="{StaticResource ErrorTextStyle}" />
+
+                    <!-- Password -->
                     <Label Text="Elige una Contraseña *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
-                    <Entry x:Name="PasswordEntry" Placeholder="Crea una contraseña segura" IsPassword="True" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Entry Text="{Binding Password}" Placeholder="Crea una contraseña segura" IsPassword="True" HeightRequest="52" BackgroundColor="#F7F7F7" />
+                    <Label Text="{Binding PasswordError}" IsVisible="{Binding HasPasswordError}" Style="{StaticResource ErrorTextStyle}" />
 
-                    
-
-                  
                     <Button Text="Guardar mi Perfil"
                             Style="{StaticResource PrimaryButtonStyle}"
                             Margin="0,20,0,0"
-                            Clicked="OnGuardarPerfilClicked" />
+                            Command="{Binding SaveCommand}" />
 
                     <Button Text="Volver al Login"
                             TextColor="{StaticResource PrimaryBlue}"
@@ -65,7 +69,7 @@
                             CornerRadius="10"
                             HeightRequest="45"
                             Margin="0,5,0,0"
-                            Clicked="OnBackToLoginClicked" />
+                            Command="{Binding BackToLoginCommand}" />
 
                 </VerticalStackLayout>
             </Border>

@@ -4,7 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:ReadBuddy.Models"
+    xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
     x:Class="ReadBuddy.Views.StoriesPage"
+    x:DataType="vm:StoriesViewModel"
     Shell.NavBarIsVisible="False"
     Title="Historias"
     BackgroundColor="{StaticResource BackgroundCream}">
@@ -12,87 +14,75 @@
     <Grid RowDefinitions="Auto,Auto,*">
 
         <!-- Header -->
-
-        <VerticalStackLayout
-            Grid.Row="0"
-            Padding="20,20,20,10"
-            Spacing="5">
-
-            <Label
-                Text="Historias 📚"
-                Style="{StaticResource PageTitleStyle}" />
-
-            <Label
-                Text="Escoge una historia para practicar."
-                Style="{StaticResource BodyTextStyle}" />
-
+        <VerticalStackLayout Grid.Row="0" Padding="20,20,20,10" Spacing="5">
+            <Label Text="Historias 📚" Style="{StaticResource PageTitleStyle}" />
+            <Label Text="Escoge una historia para practicar." Style="{StaticResource BodyTextStyle}" />
             <SearchBar
-                x:Name="StorySearchBar"
+                Text="{Binding SearchText}"
                 Placeholder="Buscar una historia..."
-                Margin="0,10,0,0"
-                TextChanged="OnSearchBarTextChanged" />
-
+                Margin="0,10,0,0" />
         </VerticalStackLayout>
 
+        <!-- Filters: the selected level gets the orange style through a DataTrigger -->
+        <HorizontalStackLayout Grid.Row="1" Padding="20,5" Spacing="8">
 
-        <!-- Filters -->
+            <Button Text="Todas" CornerRadius="18" HeightRequest="40"
+                    BackgroundColor="White" TextColor="{StaticResource TextDark}"
+                    Command="{Binding FilterCommand}" CommandParameter="Todas">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedLevel}" Value="Todas">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryOrange}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
-        <HorizontalStackLayout
-            Grid.Row="1"
-            Padding="20,5"
-            Spacing="8">
+            <Button Text="Facil" CornerRadius="18" HeightRequest="40"
+                    BackgroundColor="White" TextColor="{StaticResource TextDark}"
+                    Command="{Binding FilterCommand}" CommandParameter="Facil">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedLevel}" Value="Facil">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryOrange}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
-            <Button
-                Text="Todas"
-                x:Name="BtnAll"
-                BackgroundColor="{StaticResource SecondaryOrange}"
-                TextColor="White"
-                CornerRadius="18"
-                HeightRequest="40"
-                Clicked="OnFilterButtonClicked"/>
+            <Button Text="Medio" CornerRadius="18" HeightRequest="40"
+                    BackgroundColor="White" TextColor="{StaticResource TextDark}"
+                    Command="{Binding FilterCommand}" CommandParameter="Medio">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedLevel}" Value="Medio">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryOrange}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
-            <Button
-                Text="Facil"
-                x:Name="BtnEasy"
-                BackgroundColor="White"
-                TextColor="{StaticResource TextDark}"
-                CornerRadius="18"
-                HeightRequest="40"
-                Clicked="OnFilterButtonClicked" />
-
-            <Button
-                Text="Medio"
-                x:Name="BtnMedium"
-                BackgroundColor="White"
-                TextColor="{StaticResource TextDark}"
-                CornerRadius="18"
-                HeightRequest="40"
-                Clicked="OnFilterButtonClicked"/>
-
-            <Button
-                Text="Dificil"
-                x:Name="BtnHard"
-                BackgroundColor="White"
-                TextColor="{StaticResource TextDark}"
-                CornerRadius="18"
-                HeightRequest="40"
-                Clicked="OnFilterButtonClicked" />
+            <Button Text="Dificil" CornerRadius="18" HeightRequest="40"
+                    BackgroundColor="White" TextColor="{StaticResource TextDark}"
+                    Command="{Binding FilterCommand}" CommandParameter="Dificil">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding SelectedLevel}" Value="Dificil">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryOrange}" />
+                        <Setter Property="TextColor" Value="White" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
 
         </HorizontalStackLayout>
 
-
-        <!-- Dynamic Catalog Collection -->
+        <!-- Catalog -->
         <CollectionView
             Grid.Row="2"
-            x:Name="StoriesCollectionView"
-            SelectionMode="Single"                     
-            SelectionChanged="OnStorySelectionChanged"
+            ItemsSource="{Binding Stories}"
+            SelectionMode="None"
             Margin="0,10,0,0">
 
             <CollectionView.EmptyView>
                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
-                    <Label Text="📖" FontSize="50" HorizontalTextAlignment="Center"/>
-                    <Label Text="No hay historias disponibles en este nivel." HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15"/>
+                    <Label Text="📖" FontSize="50" HorizontalTextAlignment="Center" />
+                    <Label Text="No hay historias disponibles en este nivel." HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15" />
                 </VerticalStackLayout>
             </CollectionView.EmptyView>
 
@@ -105,49 +95,30 @@
                         Padding="15"
                         Margin="20,0,20,12">
 
-                        <Grid
-                            ColumnDefinitions="70,*,Auto"
-                            ColumnSpacing="20">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                x:DataType="{x:Null}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:StoriesViewModel}}, Path=OpenQuestionsCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
 
-                            <!-- Cover Image Container -->
+                        <Grid ColumnDefinitions="70,*,Auto" ColumnSpacing="20">
+
                             <Border
                                 BackgroundColor="{StaticResource PrimaryBlue}"
                                 StrokeThickness="0"
                                 StrokeShape="RoundRectangle 15"
                                 HeightRequest="70"
                                 WidthRequest="70">
-
-                                <Label
-                                    Text="{Binding Cover}"
-                                    FontSize="38"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center" />
+                                <Label Text="{Binding Cover}" FontSize="38" HorizontalOptions="Center" VerticalOptions="Center" />
                             </Border>
 
-                            <!-- Info Content -->
-                            <VerticalStackLayout
-                                Grid.Column="1"
-                                VerticalOptions="Center"
-                                Spacing="5">
-
-                                <Label
-                                    Text="{Binding Title}"
-                                    FontSize="19"
-                                    FontAttributes="Bold"
-                                    TextColor="{StaticResource TextDark}" />
-
-                                <Label
-                                    Text="{Binding Level, StringFormat='⭐ {0}'}"
-                                    FontSize="14"
-                                    TextColor="{StaticResource SecondaryOrange}" />
-
-                                <Label
-                                    Text="{Binding Skill}"
-                                    FontSize="13"
-                                    TextColor="{StaticResource TextDark}" />
+                            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="5">
+                                <Label Text="{Binding Title}" FontSize="19" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
+                                <Label Text="{Binding Level, StringFormat='⭐ {0}'}" FontSize="14" TextColor="{StaticResource SecondaryOrange}" />
+                                <Label Text="{Binding Skill}" FontSize="13" TextColor="{StaticResource TextDark}" />
                             </VerticalStackLayout>
 
-                            <!-- Badge  Right side -->
                             <Label
                                 Grid.Column="2"
                                 Text="Nueva"

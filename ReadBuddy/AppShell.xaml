@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ReadBuddy.Views"
+    xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
     Title="ReadBuddy">
     
     
@@ -56,7 +57,7 @@
     </FlyoutItem>
 
 
-    <MenuItem Text=" 🚪 Cerrar sesión"
-              Clicked="OnLogoutButtonClicked" />
-
+    <MenuItem x:DataType="vm:AppShellViewModel"
+          Text=" 🚪 Cerrar sesión"
+          Command="{Binding LogoutCommand}" />
 </Shell>

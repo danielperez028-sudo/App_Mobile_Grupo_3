@@ -1,19 +1,9 @@
-using System;
-using Microsoft.Maui.Controls;
+namespace ReadBuddy.Views;
 
-namespace ReadBuddy.Views
+public partial class CustomHeaderView : ContentView
 {
-    public partial class CustomHeaderView : ContentView
+    public CustomHeaderView()
     {
-        public CustomHeaderView()
-        {
-            InitializeComponent();
-        }
-
-        private void OnMenuNavigationButtonClicked(object sender, EventArgs e)
-        {
-            
-            Shell.Current.FlyoutIsPresented = true;
-        }
+        InitializeComponent();
     }
 }

@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
              x:Class="ReadBuddy.Views.CustomHeaderView"
              BackgroundColor="Transparent">
 
-    
-    <Grid Padding="25, 20, 25, 5" HorizontalOptions="Fill">
+    <!-- The ViewModel is set on the inner Grid, not on the control itself,
+         so any page that uses this control keeps its own BindingContext. -->
+    <Grid Padding="25, 20, 25, 5"
+          HorizontalOptions="Fill"
+          x:DataType="vm:HeaderViewModel">
 
-        
-        <ImageButton x:Name="MenuNavigationButton"
-                     Source="menu_icon.png" 
+        <Grid.BindingContext>
+            <vm:HeaderViewModel />
+        </Grid.BindingContext>
+
+        <ImageButton Source="menu_icon.png"
                      HeightRequest="35"
                      WidthRequest="35"
                      BackgroundColor="Transparent"
                      HorizontalOptions="Start"
                      VerticalOptions="Center"
-                     Clicked="OnMenuNavigationButtonClicked"/>
+                     Command="{Binding OpenMenuCommand}" />
     </Grid>
 </ContentView>

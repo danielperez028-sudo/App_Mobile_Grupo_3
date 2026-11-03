@@ -1,42 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:ReadBuddy.Models"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
              x:Class="ReadBuddy.Views.QuestionsPage"
+             x:DataType="vm:QuestionsViewModel"
              Title="Comprensión"
              BackgroundColor="{StaticResource BackgroundCream}"
              Shell.NavBarIsVisible="False">
 
     <Grid RowDefinitions="Auto, *, Auto">
 
-        <!--  story info -->
+        <!-- Story info -->
         <Border Grid.Row="0"
                 BackgroundColor="{StaticResource PrimaryBlue}"
                 StrokeThickness="0"
                 Padding="25,30,25,20">
             <VerticalStackLayout Spacing="5">
                 <Label Text="Preguntas de Lectura 🏅" TextColor="White" FontSize="24" FontAttributes="Bold" />
-                <Label x:Name="StoryTitleLabel" Text="Historia: Cargando..." TextColor="White" FontSize="14" Opacity="0.9" FontAttributes="Italic"/>
+                <Label Text="{Binding StoryTitleText}" TextColor="White" FontSize="14" Opacity="0.9" FontAttributes="Italic" />
             </VerticalStackLayout>
         </Border>
 
-        <!-- Dynamic Questions Collection -->
+        <!-- Questions -->
         <CollectionView Grid.Row="1"
-                        x:Name="QuestionsCollectionView"
+                        ItemsSource="{Binding Questions}"
                         SelectionMode="None"
                         Margin="0,15,0,0">
 
-            <!-- Empty State View -->
             <CollectionView.EmptyView>
                 <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
-                    <Label Text="🎉" FontSize="50" HorizontalTextAlignment="Center"/>
-                    <Label Text="¡Esta historia no tiene preguntas asignadas todavía!" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15"/>
+                    <Label Text="🎉" FontSize="50" HorizontalTextAlignment="Center" />
+                    <Label Text="¡Esta historia no tiene preguntas asignadas todavía!" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15" />
                 </VerticalStackLayout>
             </CollectionView.EmptyView>
 
-            <!-- Template Design for each Question Card -->
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Question">
+                <DataTemplate x:DataType="vm:QuestionItemViewModel">
                     <Border BackgroundColor="White"
                             StrokeThickness="0"
                             StrokeShape="RoundRectangle 18"
@@ -45,25 +44,21 @@
 
                         <VerticalStackLayout Spacing="12">
 
-                            <!-- Skill Badge and Header -->
                             <Grid ColumnDefinitions="*, Auto">
-                                <Label Grid.Column="0" Text="Pregunta de Comprensión" FontSize="13" TextColor="Gray" FontAttributes="Bold"/>
+                                <Label Grid.Column="0" Text="Pregunta de Comprensión" FontSize="13" TextColor="Gray" FontAttributes="Bold" />
                                 <Border Grid.Column="1" BackgroundColor="#FFF3E0" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4">
-                                    <Label Text="{Binding Skill}" TextColor="{StaticResource SecondaryOrange}" FontAttributes="Bold" FontSize="11"/>
+                                    <Label Text="{Binding Skill}" TextColor="{StaticResource SecondaryOrange}" FontAttributes="Bold" FontSize="11" />
                                 </Border>
                             </Grid>
 
-                            <!-- Core Question text -->
-                            <Label Text="{Binding Text}" FontSize="17" FontAttributes="Bold" TextColor="{StaticResource TextDark}" LineHeight="1.2"/>
+                            <Label Text="{Binding Text}" FontSize="17" FontAttributes="Bold" TextColor="{StaticResource TextDark}" LineHeight="1.2" />
 
-                            
                             <Picker Title="Toca aquí para responder..."
-                                    x:Name="StudentAnswerPicker"
-                                    BackgroundColor="#F3F4F6"
+                                    ItemsSource="{Binding Options}"
+                                    SelectedItem="{Binding SelectedAnswer}"
+                                    BackgroundColor="{Binding PickerColor}"
                                     Margin="0,10,0,0"
-                                    HeightRequest="50"
-                                    SelectedIndexChanged="OnAnswerPickerSelectedIndexChanged"
-                                    Loaded="OnStudentAnswerPickerLoaded"/>
+                                    HeightRequest="50" />
 
                         </VerticalStackLayout>
                     </Border>
@@ -71,12 +66,11 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Bottom Action  -->
         <Button Grid.Row="2"
                 Text="Enviar Cuestionario"
                 Style="{StaticResource PrimaryButtonStyle}"
                 Margin="20,10,20,25"
-                Clicked="OnSubmitTriviaButtonClicked"/>
+                Command="{Binding SubmitCommand}" />
 
     </Grid>
 </ContentPage>
