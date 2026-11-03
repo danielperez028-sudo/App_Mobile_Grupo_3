@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ReadBuddy.Models"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
+             x:Class="ReadBuddy.Views.QuestionFormPage"
+             x:DataType="vm:QuestionFormViewModel"
+             Title="Pregunta"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="False">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="{Binding FormTitle}" Style="{StaticResource PageTitleStyle}" />
+
+            <!-- Story -->
+            <Label Text="Historia Relacionada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
+            <Picker Title="Selecciona el cuento correspondiente"
+                    ItemsSource="{Binding Stories}"
+                    ItemDisplayBinding="{Binding Title, x:DataType=models:Story}"
+                    SelectedItem="{Binding SelectedStory}"
+                    BackgroundColor="White" />
+            <Label Text="Aún no hay historias. Crea una historia antes de agregar preguntas."
+                   IsVisible="{Binding HasNoStories}"
+                   TextColor="Gray" FontSize="12" Margin="4,-6,0,0" />
+            <Label Text="{Binding StoryError}" IsVisible="{Binding HasStoryError}" Style="{StaticResource ErrorTextStyle}" />
+
+            <!-- Question -->
+            <Label Text="Pregunta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Entry Text="{Binding QuestionText}"
+                   Placeholder="¿Cómo se llamaba el personaje principal?"
+                   HeightRequest="52" BackgroundColor="White" />
+            <Label Text="{Binding QuestionError}" IsVisible="{Binding HasQuestionError}" Style="{StaticResource ErrorTextStyle}" />
+
+            <!-- Skill -->
+            <Label Text="Habilidad Evaluada *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Picker Title="Selecciona la habilidad"
+                    ItemsSource="{Binding Skills}"
+                    SelectedItem="{Binding Skill}"
+                    BackgroundColor="White" />
+            <Label Text="{Binding SkillError}" IsVisible="{Binding HasSkillError}" Style="{StaticResource ErrorTextStyle}" />
+
+            <!-- Options -->
+            <Label Text="Opciones de Respuesta (Separadas por comas) *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Entry Text="{Binding OptionsText}"
+                   Placeholder="Ej: Azul, Rojo, Verde"
+                   HeightRequest="52" BackgroundColor="White" />
+            <Label Text="{Binding OptionsError}" IsVisible="{Binding HasOptionsError}" Style="{StaticResource ErrorTextStyle}" />
+
+            <!-- Correct answer -->
+            <Label Text="Selecciona la Respuesta Correcta *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Picker Title="Elige la respuesta correcta"
+                    ItemsSource="{Binding AnswerChoices}"
+                    SelectedItem="{Binding CorrectAnswer}"
+                    BackgroundColor="White" />
+            <Label Text="{Binding CorrectAnswerError}" IsVisible="{Binding HasCorrectAnswerError}" Style="{StaticResource ErrorTextStyle}" />
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,1.4*" ColumnSpacing="12" Margin="0,20,0,20">
+                <Button Text="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding CancelCommand}" />
+                <Button Grid.Column="1" Text="{Binding SaveButtonText}" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding SaveCommand}" />
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

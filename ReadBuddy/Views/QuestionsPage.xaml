@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
+             x:Class="ReadBuddy.Views.QuestionsPage"
+             x:DataType="vm:QuestionsViewModel"
+             Title="Comprensión"
+             BackgroundColor="{StaticResource BackgroundCream}"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- Story info -->
+        <Border Grid.Row="0"
+                BackgroundColor="{StaticResource PrimaryBlue}"
+                StrokeThickness="0"
+                Padding="25,30,25,20">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Preguntas de Lectura 🏅" TextColor="White" FontSize="24" FontAttributes="Bold" />
+                <Label Text="{Binding StoryTitleText}" TextColor="White" FontSize="14" Opacity="0.9" FontAttributes="Italic" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Questions -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Questions}"
+                        SelectionMode="None"
+                        Margin="0,15,0,0">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="30">
+                    <Label Text="🎉" FontSize="50" HorizontalTextAlignment="Center" />
+                    <Label Text="¡Esta historia no tiene preguntas asignadas todavía!" HorizontalTextAlignment="Center" TextColor="Gray" FontSize="15" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:QuestionItemViewModel">
+                    <Border BackgroundColor="White"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 18"
+                            Padding="20"
+                            Margin="20,0,20,12">
+
+                        <VerticalStackLayout Spacing="12">
+
+                            <Grid ColumnDefinitions="*, Auto">
+                                <Label Grid.Column="0" Text="Pregunta de Comprensión" FontSize="13" TextColor="Gray" FontAttributes="Bold" />
+                                <Border Grid.Column="1" BackgroundColor="#FFF3E0" StrokeThickness="0" StrokeShape="RoundRectangle 6" Padding="8,4">
+                                    <Label Text="{Binding Skill}" TextColor="{StaticResource SecondaryOrange}" FontAttributes="Bold" FontSize="11" />
+                                </Border>
+                            </Grid>
+
+                            <Label Text="{Binding Text}" FontSize="17" FontAttributes="Bold" TextColor="{StaticResource TextDark}" LineHeight="1.2" />
+
+                            <Picker Title="Toca aquí para responder..."
+                                    ItemsSource="{Binding Options}"
+                                    SelectedItem="{Binding SelectedAnswer}"
+                                    BackgroundColor="{Binding PickerColor}"
+                                    Margin="0,10,0,0"
+                                    HeightRequest="50" />
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2"
+                Text="Enviar Cuestionario"
+                Style="{StaticResource PrimaryButtonStyle}"
+                Margin="20,10,20,25"
+                Command="{Binding SubmitCommand}" />
+
+    </Grid>
+</ContentPage>

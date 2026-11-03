@@ -4,15 +4,31 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:ReadBuddy.Views"
+    xmlns:vm="clr-namespace:ReadBuddy.ViewModels"
     Title="ReadBuddy">
+    
+    
 
     <ShellContent
         Title="Login"
         Route="login"
-        ContentTemplate="{DataTemplate views:LoginPage}" />
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.NavBarIsVisible="False"
+        Shell.TabBarIsVisible="False" />
 
-    <TabBar>
- 
+    <ShellContent
+        Title="Registro Estudiante"
+        Route="register-student"
+        ContentTemplate="{DataTemplate views:RegisterStudentPage}"
+        Shell.FlyoutBehavior="Disabled"
+        Shell.FlyoutItemIsVisible="False"
+        Shell.TabBarIsVisible="False" />
+
+    <FlyoutItem Title="Menú Estudiante" Shell.FlyoutItemIsVisible="False"
+                Route="student-app">
+
         <ShellContent
             Title="Inicio"
             Route="home"
@@ -23,11 +39,25 @@
             Route="stories"
             ContentTemplate="{DataTemplate views:StoriesPage}" />
 
+        
+
+    </FlyoutItem>
+
+    <FlyoutItem Title="Panel de Control (Admin)" Shell.FlyoutItemIsVisible="False" Route="admin-panel">
+
+        
         <ShellContent
-            Title="Creacion"
-            Route="story-form"
-            ContentTemplate="{DataTemplate views:StoryFormPage}" />
+            Title="Gestión General"
+            Route="admin-home"
+            Shell.FlyoutItemIsVisible="False"
+            ContentTemplate="{DataTemplate views:AdminDashboardPage}"/>
 
-    </TabBar>
 
+
+    </FlyoutItem>
+
+
+    <MenuItem x:DataType="vm:AppShellViewModel"
+          Text=" 🚪 Cerrar sesión"
+          Command="{Binding LogoutCommand}" />
 </Shell>

@@ -1,19 +1,12 @@
-using System;
-using Microsoft.Maui.Controls;
+using ReadBuddy.ViewModels;
 
-namespace ReadBuddy.Views
+namespace ReadBuddy.Views;
+
+public partial class LoginPage : ContentPage
 {
-    public partial class LoginPage : ContentPage
+    public LoginPage()
     {
-        public LoginPage()
-        {
-            InitializeComponent();
-        }
-
-        
-        private async void OnEnterButtonClicked(object sender, EventArgs e)
-        {  
-            await Shell.Current.GoToAsync("//home");
-        }
+        InitializeComponent();
+        BindingContext = new LoginViewModel();
     }
 }
