@@ -36,7 +36,7 @@
             <Label Text="{Binding CoverError}" IsVisible="{Binding HasCoverError}" Style="{StaticResource ErrorTextStyle}" />
 
             <!-- Title -->
-            <Label Text="Titulo *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
+            <Label Text="Título *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
             <Entry
                 Text="{Binding Title}"
                 Placeholder="El zorro y la luna"
@@ -70,7 +70,7 @@
             </Grid>
 
             <!-- Category -->
-            <Label Text="Categoria *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
+            <Label Text="Categoría *" FontAttributes="Bold" TextColor="{StaticResource TextDark}" Margin="0,5,0,0" />
             <Entry
                 Text="{Binding Category}"
                 Placeholder="Animales, aventura..."

@@ -36,8 +36,8 @@
                 <VerticalStackLayout Grid.Column="1" 
                      Grid.Row="0"
                      VerticalOptions="Center">
-                    <Label Text="Hola, Lector! 👋" Style="{StaticResource PageTitleStyle}" />
-                    <Label Text="Que leemos hoy?" Style="{StaticResource BodyTextStyle}" />
+                    <Label Text="¡Hola, Lector! 👋" Style="{StaticResource PageTitleStyle}" />
+                    <Label Text="¿Qué leemos hoy?" Style="{StaticResource BodyTextStyle}" />
                 </VerticalStackLayout>
 
                
@@ -107,7 +107,7 @@
             <!-- Modules -->
 
             <Label
-                Text="Que quieres hacer?"
+                Text="¿Qué quieres hacer?"
                 Style="{StaticResource PageTitleStyle}"
                 FontSize="22" />
 

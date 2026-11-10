@@ -10,7 +10,7 @@ namespace ReadBuddy.ViewModels;
 public partial class StudentRegisterViewModel : BaseViewModel
 {
     private const int MinAge = 3;
-    private const int MaxAge = 18;
+    private const int MaxAge = 80;
 
     // Letters (with accents), spaces, apostrophes and hyphens, starting with a letter
     private static readonly Regex NamePattern = new(@"^\p{L}[\p{L}\s'\-]*$");

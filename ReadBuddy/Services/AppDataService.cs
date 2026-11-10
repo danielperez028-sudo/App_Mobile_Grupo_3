@@ -22,7 +22,7 @@ public static class AppDataService
         return -1;
     }
 
-    // ---------- Students (no edit/delete by design) ----------
+    // ---------- Students  ----------
     public static void AddStudent(Student student)
     {
         student.Id = _nextStudentId++;

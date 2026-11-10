@@ -34,7 +34,7 @@
 
                 <Label Text="Bienvenido!" Style="{StaticResource PageTitleStyle}" />
 
-                <Label Text="Empezemos a leer." Style="{StaticResource BodyTextStyle}" Margin="0,0,0,15" />
+                <Label Text="Empecemos a leer." Style="{StaticResource BodyTextStyle}" Margin="0,0,0,15" />
 
                 <!-- Username -->
                 <Label Text="Usuario" FontAttributes="Bold" TextColor="{StaticResource TextDark}" />
